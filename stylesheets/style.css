@@ -1,0 +1,31 @@
+html {
+  font-size: 10px;
+}
+
+header {
+  font-family: 'Roboto Slab', serif;
+  background-color: #e5f3f2;
+  height: 60vh;
+}
+
+h1 {
+  font-size: 5rem;
+  color: #6d6e71
+  margin: auto;
+  text-align: center;
+}
+
+span {
+  color: #00a79d
+}
+
+button,
+input {
+  display: block;
+}
+
+button {
+  background-color: #00a79d;
+  color: #ffffff;
+}
+
