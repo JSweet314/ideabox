@@ -1,15 +1,17 @@
 var $userTitle = $('#idea-title');
 var $userBody = $('#idea-body');
 var $userIdeas = $('main');
+var ideaNumber = 0;
 
-function Idea(title, body) {
+function Idea(id, title, body) {
+  this.id = id;
   this.title = title;
   this.body = body;
   this.quality = 'swill';
 }
 
-Idea.prototype.appendIdea = function() {
-  $userIdeas.append(
+Idea.prototype.prependIdea = function() {
+  $userIdeas.prepend(
   `<div>
       <h2>${this.title}</h2>
       <input class="delete-button" type="image" src="images/delete.svg" alt="delete">
@@ -39,8 +41,13 @@ function changeQualityDown() {
 
 $('button').on('click', function(event){
   event.preventDefault();
-  var idea = new Idea($userTitle.val(), $userBody.val());
-  idea.appendIdea();
+  var date = Date.now();
+  console.log(date);
+  var idea = new Idea(date, $userTitle.val(), $userBody.val());
+  console.log(idea);
+  idea.prependIdea();
+  $userTitle.val('');
+  $userBody.val('');
 });
 
 $userIdeas.on('click', '.upvote-button', changeQualityUp);
