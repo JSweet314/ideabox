@@ -3,8 +3,8 @@ var $userBody = $('#idea-body');
 var $userIdeas = $('main');
 var ideaNumber = 0;
 
-function Idea(id, title, body) {
-  this.id = id;
+function Idea(title, body) {
+  this.id = Date();
   this.title = title;
   this.body = body;
   this.quality = 'swill';
@@ -18,7 +18,7 @@ Idea.prototype.prependIdea = function() {
       <p>${this.body}</p>
       <input class="upvote-button" type="image" src="images/upvote.svg" alt="up-vote">
       <input class="downvote-button" type="image" src="images/downvote.svg" alt="down-vote"> 
-      <span class="quality">quality: swill</span>
+      <span class="quality">quality: ${this.quality}</span>
       <hr />
       </div>`);
 };
@@ -41,9 +41,7 @@ function changeQualityDown() {
 
 $('button').on('click', function(event){
   event.preventDefault();
-  var date = Date.now();
-  console.log(date);
-  var idea = new Idea(date, $userTitle.val(), $userBody.val());
+  var idea = new Idea($userTitle.val(), $userBody.val());
   console.log(idea);
   idea.prependIdea();
   $userTitle.val('');
