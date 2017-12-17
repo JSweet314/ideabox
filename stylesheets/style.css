@@ -1,31 +1,44 @@
 html {
   font-size: 10px;
+  box-sizing:border-box;
 }
 
 header {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   background-color: #e5f3f2;
   height: 60vh;
 }
 
 h1 {
   font-size: 5rem;
-  color: #6d6e71
-  margin: auto;
+  color: #6d6e71;
   text-align: center;
+  padding: 3rem 0 0 0;
 }
 
 span {
   color: #00a79d
 }
 
+textarea,
 button,
 input {
   display: block;
+  width: 90%;
+  height: 3rem;
+  margin: 2rem auto;
+}
+
+textarea {
+  height: 8rem;
 }
 
 button {
   background-color: #00a79d;
   color: #ffffff;
+  height: 4rem;
 }
 
+.search-box {
+  border: 1px solid black;
+}
