@@ -16,7 +16,7 @@ Idea.prototype.appendIdea = function() {
       <p>${this.body}</p>
       <input class="upvote-button" type="image" src="images/upvote.svg" alt="up-vote">
       <input class="downvote-button" type="image" src="images/downvote.svg" alt="down-vote"> 
-      <span class="quality">quality: ${this.quality}</span>
+      <span class="quality">quality: swill</span>
       <hr />
       </div>`);
 };
