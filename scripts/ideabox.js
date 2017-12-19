@@ -124,6 +124,7 @@ function persistBodyEdit(e){
     var parsedIdea = JSON.parse(localStorage.getItem(storageID));
     parsedIdea.body= $(this).text()
     localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
+    $(this).parent().data('body', $(this).text());
     if (e.keyCode == 13){
       $(this).blur();
     } 
