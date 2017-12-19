@@ -12,7 +12,7 @@ $(window).on('load', function(){
   }
 });
 
-$searchBox.on('keyup', filterIdeas)
+$searchBox.on('keyup', filterIdeas);
 
 $('button').on('click', function(event){
   event.preventDefault();
@@ -26,6 +26,10 @@ $('button').on('click', function(event){
 $userIdeas.on('click', '.upvote-button', changeQualityUp);
 
 $userIdeas.on('click', '.downvote-button', changeQualityDown);
+
+$userIdeas.on('blur keydown', 'h2', persistTitleEdit);
+
+$userIdeas.on('blur keydown', 'p', persistBodyEdit)
 
 $userIdeas.on('click', '.delete-button', function(){
   var storageID = $(this).parent().data('id');
@@ -52,6 +56,7 @@ function prependIdea(ideaObject) {
     <hr />
     </div>`);
   $('div:first').data(ideaObject);
+  $('div:first h2, div:first p').attr('contenteditable', true);
 };
 
 function changeQualityUp() {
@@ -99,4 +104,28 @@ function filterIdeas(){
     });
     obj.element.style.display = test ? '' : 'none';
   });
+}
+
+function persistTitleEdit(e){
+  if (e.type == 'blur' || e.keyCode == 13){
+    var storageID = $(this).parent().data('id');
+    var parsedIdea = JSON.parse(localStorage.getItem(storageID));
+    parsedIdea.title = $(this).text();
+    localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
+    if (e.keyCode == 13){
+      $(this).blur();
+    }
+  }
+}
+
+function persistBodyEdit(e){
+  if (e.type == 'blur' || e.keyCode == 13){
+    var storageID = $(this).parent().data('id');
+    var parsedIdea = JSON.parse(localStorage.getItem(storageID));
+    parsedIdea.body= $(this).text()
+    localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
+    if (e.keyCode == 13){
+      $(this).blur();
+    } 
+  }
 }
