@@ -90,8 +90,14 @@ function filterIdeas(){
     });
   });
   cache.forEach(function(obj){
-    obj.data.forEach(function(string){
-      console.log(string);
+    var test = false;
+    obj.data.forEach(function(dataEntry){
+      if (dataEntry.toString().trim().toLowerCase().indexOf(search) > -1){
+        console.log(dataEntry.toString().trim().toLowerCase().indexOf(search))
+        test = true;
+        return true;
+      }
     });
+    obj.element.style.display = test ? '' : 'none';
   });
 }
