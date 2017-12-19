@@ -92,10 +92,9 @@ function filterIdeas(){
   cache.forEach(function(obj){
     var test = false;
     obj.data.forEach(function(dataEntry){
-      if (dataEntry.toString().trim().toLowerCase().indexOf(search) > -1){
-        console.log(dataEntry.toString().trim().toLowerCase().indexOf(search))
+      var string = dataEntry.toString().trim().toLowerCase()
+      if (string.indexOf(search) > -1){
         test = true;
-        return true;
       }
     });
     obj.element.style.display = test ? '' : 'none';
