@@ -27,9 +27,9 @@ $userIdeas.on('click', '.upvote-button', changeQualityUp);
 
 $userIdeas.on('click', '.downvote-button', changeQualityDown);
 
-$userIdeas.on('blur keydown', 'h2', persistTitleEdit);
+$userIdeas.on('blur', 'h2', persistTitleEdit);
 
-$userIdeas.on('blur keydown', 'p', persistBodyEdit)
+$userIdeas.on('blur', 'p', persistBodyEdit)
 
 $userIdeas.on('click', '.delete-button', function(){
   var storageID = $(this).parent().data('id');
@@ -55,7 +55,7 @@ function prependIdea(ideaObject) {
     <span class="quality">quality: ${ideaObject.quality}</span>
     <hr />
     </div>`);
-  $('div:first').data(ideaObject);
+  $('div:first').data('id', ideaObject.id);
   $('div:first h2, div:first p').attr('contenteditable', true);
 };
 
@@ -85,47 +85,29 @@ function changeQualityDown() {
   localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
 };
 
-function filterIdeas(){
-  var search = $searchBox.val().trim().toLowerCase();
-  var cache = [];
-  $('div').each(function(){
-    cache.push({
-      element: this,
-      data: Object.values($(this).data())
-    });
-  });
-  cache.forEach(function(obj){
+function filterIdeas() {
+ var search = $searchBox.val().trim().toLowerCase();
+ $('div').each(function() {
     var test = false;
-    obj.data.forEach(function(dataEntry){
-      var string = dataEntry.toString().trim().toLowerCase()
-      if (string.indexOf(search) > -1){
-        test = true;
-      }
-    });
-    obj.element.style.display = test ? '' : 'none';
+    var elementText = $(this).text().toLowerCase();
+    if (elementText.indexOf(search) > -1) {
+      test = true;
+    }
+    this.style.display = test ? '' : 'none';
   });
 }
 
-function persistTitleEdit(e){
-  if (e.type == 'blur' || e.keyCode == 13){
-    var storageID = $(this).parent().data('id');
-    var parsedIdea = JSON.parse(localStorage.getItem(storageID));
-    parsedIdea.title = $(this).text();
-    localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
-    if (e.keyCode == 13){
-      $(this).blur();
-    }
-  }
+function persistTitleEdit(e) {
+  var storageID = $(this).parent().data('id');
+  var parsedIdea = JSON.parse(localStorage.getItem(storageID));
+  parsedIdea.title = $(this).text();
+  localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
 }
 
-function persistBodyEdit(e){
-  if (e.type == 'blur' || e.keyCode == 13){
-    var storageID = $(this).parent().data('id');
-    var parsedIdea = JSON.parse(localStorage.getItem(storageID));
-    parsedIdea.body= $(this).text()
-    localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
-    if (e.keyCode == 13){
-      $(this).blur();
-    } 
-  }
+function persistBodyEdit(e) {
+ var storageID = $(this).parent().data('id');
+ var parsedIdea = JSON.parse(localStorage.getItem(storageID));
+ parsedIdea.body= $(this).text()
+ localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
+
 }
