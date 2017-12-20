@@ -27,9 +27,15 @@ $userIdeas.on('click', '.upvote-button', changeQualityUp);
 
 $userIdeas.on('click', '.downvote-button', changeQualityDown);
 
+$userIdeas.on('click', 'h2, p', enableEditableContent)
+
 $userIdeas.on('blur', 'h2', persistTitleEdit);
 
+$userIdeas.on('keydown', 'h2', enterDisablesEditableContent);
+
 $userIdeas.on('blur', 'p', persistBodyEdit)
+
+$userIdeas.on('keydown', 'p', enterDisablesEditableContent)
 
 $userIdeas.on('click', '.delete-button', function(){
   var storageID = $(this).parent().data('id');
@@ -56,7 +62,7 @@ function prependIdea(ideaObject) {
     <hr />
     </div>`);
   $('div:first').data('id', ideaObject.id);
-  $('div:first h2, div:first p').attr('contenteditable', true);
+  // $('div:first h2, div:first p').attr('contenteditable', true);
 };
 
 function changeQualityUp() {
@@ -97,6 +103,18 @@ function filterIdeas() {
   });
 }
 
+function enableEditableContent() {
+  $(this).attr('contenteditable', true);
+  $(this).focus();
+}
+
+function enterDisablesEditableContent(e) {
+  if (e.keyCode === 13){
+    $(this).attr('contenteditable', false);
+    $(this).blur();
+  }
+}
+
 function persistTitleEdit(e) {
   var storageID = $(this).parent().data('id');
   var parsedIdea = JSON.parse(localStorage.getItem(storageID));
@@ -109,5 +127,4 @@ function persistBodyEdit(e) {
  var parsedIdea = JSON.parse(localStorage.getItem(storageID));
  parsedIdea.body= $(this).text()
  localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
-
 }
