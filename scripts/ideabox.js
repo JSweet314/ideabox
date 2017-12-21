@@ -2,7 +2,6 @@ var $userTitle = $('#idea-title');
 var $userBody = $('#idea-body');
 var $userIdeas = $('main');
 var $searchBox = $('#search-box');
-var cache = [];
 
 $(window).on('load', function(){
   for (i = 0; i < localStorage.length; i++){
@@ -24,21 +23,19 @@ $('button').on('click', function(event){
 });
 
 $userIdeas.on('click', '.upvote-button', changeQualityUp);
-$userIdeas.on('mouseenter', '.upvote-button', changeHoverUp);
-$userIdeas.on('mouseleave', '.upvote-button', changeHoverUp);
+$userIdeas.on('mouseenter', '.upvote-button', changeHoverUpvoteButton);
+$userIdeas.on('mouseleave', '.upvote-button', changeHoverUpvoteButton);
 
 $userIdeas.on('click', '.downvote-button', changeQualityDown);
-$userIdeas.on('mouseenter', '.downvote-button', changeHoverDown);
-$userIdeas.on('mouseleave', '.downvote-button', changeHoverDown);
+$userIdeas.on('mouseenter', '.downvote-button', changeHoverDownvoteButton);
+$userIdeas.on('mouseleave', '.downvote-button', changeHoverDownvoteButton);
 
 $userIdeas.on('click', 'h2, p', enableEditableContent)
 
 $userIdeas.on('blur', 'h2', persistTitleEdit);
-
 $userIdeas.on('keydown', 'h2', enterDisablesEditableContent);
 
 $userIdeas.on('blur', 'p', persistBodyEdit)
-
 $userIdeas.on('keydown', 'p', enterDisablesEditableContent)
 
 $userIdeas.on('click', '.delete-button', function(){
@@ -46,8 +43,8 @@ $userIdeas.on('click', '.delete-button', function(){
   localStorage.removeItem(storageID);
   $(this).parent().remove();
 });
-$userIdeas.on('mouseenter', '.delete-button', changeHoverDelete);
-$userIdeas.on('mouseleave', '.delete-button', changeHoverDelete);
+$userIdeas.on('mouseenter', '.delete-button', changeHoverDeleteButton);
+$userIdeas.on('mouseleave', '.delete-button', changeHoverDeleteButton);
 
 function Idea(title, body) {
   this.id = Date.now();
@@ -68,7 +65,7 @@ function prependIdea(ideaObject) {
     <hr />
     </div>`);
   $('div:first').data('id', ideaObject.id);
-};
+}
 
 function changeQualityUp() {
   var storageID = $(this).parent().data('id');
@@ -81,7 +78,7 @@ function changeQualityUp() {
     parsedIdea.quality = 'genius';
   } 
   localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
-};
+}
 
 function changeQualityDown() {
   var storageID = $(this).parent().data('id');
@@ -94,7 +91,7 @@ function changeQualityDown() {
     parsedIdea.quality = 'swill';
   }
   localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
-};
+}
 
 function filterIdeas() {
  var search = $searchBox.val().trim().toLowerCase();
@@ -134,7 +131,7 @@ function persistBodyEdit(e) {
  localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
 }
 
-function changeHoverDown(e) {
+function changeHoverDownvoteButton(e) {
   if (e.type === 'mouseenter') {
     $(this).attr('src', 'images/downvote-hover.svg');
   } else {
@@ -142,7 +139,7 @@ function changeHoverDown(e) {
   }
 }
 
-function changeHoverUp(e) {
+function changeHoverUpvoteButton(e) {
   if (e.type === 'mouseenter') {
     $(this).attr('src', 'images/upvote-hover.svg');
   } else {
@@ -150,7 +147,7 @@ function changeHoverUp(e) {
   }
 }
 
-function changeHoverDelete(e) {
+function changeHoverDeleteButton(e) {
   if (e.type === 'mouseenter') {
     $(this).attr('src', 'images/delete-hover.svg');
   } else {
