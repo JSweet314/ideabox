@@ -1,32 +1,55 @@
+/*organize within blocks by positioning, then display and box model, then other as needed*/
+
 html {
   font-size: 10px;
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
 header {
   font-family: "Roboto Slab", serif;
   background-color: #e5f3f2;
-  height: 60vh;
+}
+
+form {
+  height: 200px;
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3rem;
   color: #6d6e71;
   text-align: center;
-  padding: 3rem 0 0 0;
+  padding: 2rem 0 0 0;
 }
 
 span {
   color: #00a79d
 }
 
+input[type=text],
+textarea,
+.search-box {
+  border: 2px solid #CFD1D3;
+}
+
 textarea,
 button,
 input {
   display: block;
-  width: 90%;
-  height: 3rem;
+  width: 85%;
+  height: 2.5rem;
   margin: 2rem auto;
+  font-size: 2rem;
+}
+
+textarea::placeholder,
+input::placeholder,
+.search-box::placeholder {
+  color: #BFC0C2;
+  padding-left: 5px;
+}
+
+button:hover {
+  background-color: #045e55;
 }
 
 textarea {
@@ -36,17 +59,17 @@ textarea {
 button {
   background-color: #00a79d;
   color: #ffffff;
-  height: 4rem;
+  height:  3rem;
+  width: 88%;
 }
 
 .search-box {
-  border: 1px solid black;
 }
 
 /* Styling for the idea divs that are dynamically added */
 div {
-  width: 90%;
-  margin: auto;
+  width: 85%;
+  margin: 25px auto;
 }
 
 div h2,
@@ -57,6 +80,7 @@ div input {
 div h2 {
   font-size: 3rem;
   max-width: 80%;
+  padding: 0 0 5px 0;
   overflow: scroll;
 }
 
@@ -67,17 +91,20 @@ div span {
 
 div input {
   width: 3rem;
+  height: 3rem;
 }
 
 .delete-button {
   float: right;
-  margin: 0 1rem 0 0;
+  margin: 0;
 }
 
 div p {
-  margin: 1rem 0;
+  margin: 2rem 0;
   font-size: 2rem;
-  color: #939598
+  color: #939598;
+  max-height: 12rem;
+  overflow: scroll;
 }
 
 .upvote-button,
@@ -88,4 +115,8 @@ div p {
 
 div span {
   font-size: 2rem;
+}
+
+div hr {
+  margin-top: 20px;
 }
