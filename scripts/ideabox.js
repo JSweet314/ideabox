@@ -24,8 +24,12 @@ $('button').on('click', function(event){
 });
 
 $userIdeas.on('click', '.upvote-button', changeQualityUp);
+$userIdeas.on('mouseenter', '.upvote-button', changeHoverUp);
+$userIdeas.on('mouseleave', '.upvote-button', changeHoverUp);
 
 $userIdeas.on('click', '.downvote-button', changeQualityDown);
+$userIdeas.on('mouseenter', '.downvote-button', changeHoverDown);
+$userIdeas.on('mouseleave', '.downvote-button', changeHoverDown);
 
 $userIdeas.on('click', 'h2, p', enableEditableContent)
 
@@ -42,6 +46,8 @@ $userIdeas.on('click', '.delete-button', function(){
   localStorage.removeItem(storageID);
   $(this).parent().remove();
 });
+$userIdeas.on('mouseenter', '.delete-button', changeHoverDelete);
+$userIdeas.on('mouseleave', '.delete-button', changeHoverDelete);
 
 function Idea(title, body) {
   this.id = Date.now();
@@ -126,4 +132,28 @@ function persistBodyEdit(e) {
  var parsedIdea = JSON.parse(localStorage.getItem(storageID));
  parsedIdea.body= $(this).text()
  localStorage.setItem(parsedIdea.id, JSON.stringify(parsedIdea));
+}
+
+function changeHoverDown(e) {
+  if (e.type === 'mouseenter') {
+    $(this).attr('src', 'images/downvote-hover.svg');
+  } else {
+    $(this).attr('src', 'images/downvote.svg');
+  }
+}
+
+function changeHoverUp(e) {
+  if (e.type === 'mouseenter') {
+    $(this).attr('src', 'images/upvote-hover.svg');
+  } else {
+    $(this).attr('src', 'images/upvote.svg');
+  }
+}
+
+function changeHoverDelete(e) {
+  if (e.type === 'mouseenter') {
+    $(this).attr('src', 'images/delete-hover.svg');
+  } else {
+    $(this).attr('src', 'images/delete.svg');
+  }
 }
