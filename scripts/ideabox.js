@@ -62,7 +62,6 @@ function prependIdea(ideaObject) {
     <hr />
     </div>`);
   $('div:first').data('id', ideaObject.id);
-  // $('div:first h2, div:first p').attr('contenteditable', true);
 };
 
 function changeQualityUp() {
